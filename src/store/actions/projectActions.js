@@ -4,14 +4,20 @@ export const CREATE_PROJECT_ERROR = 'CREATE_PROJECT_ERROR';
 
 export const createProject = project => {
   return (dispatch, getState) => {
+    const {
+      firebase: {
+        profile,
+        auth: { uid: authorId }
+      }
+    } = getState();
     firebase
       .firestore()
       .collection('projects')
       .add({
         ...project,
-        authorFirstName: 'Betty',
-        authorLastName: 'Han',
-        authorId: 12345,
+        authorFirstName: profile.firstName,
+        authorLastName: profile.lastName,
+        authorId,
         createdAt: new Date()
       })
       .then(() => {

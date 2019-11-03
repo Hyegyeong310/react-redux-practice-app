@@ -6,7 +6,6 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import rootReducer from './store/reducers/rootReducer';
 import thunk from 'redux-thunk';
-import firebase from 'firebase/app';
 import { ReactReduxFirebaseProvider } from 'react-redux-firebase';
 import { createFirestoreInstance } from 'redux-firestore';
 import fbConfig from './config/fbConfig';
@@ -14,9 +13,15 @@ import * as serviceWorker from './serviceWorker';
 
 const store = createStore(rootReducer, compose(applyMiddleware(thunk)));
 
+const rrfConfig = {
+  attachAuthIsReady: true,
+  userProfile: 'users',
+  useFirestoreForProfile: true
+};
+
 const rrfProps = {
-  firebase,
-  config: fbConfig,
+  firebase: fbConfig,
+  config: rrfConfig,
   dispatch: store.dispatch,
   createFirestoreInstance
 };
