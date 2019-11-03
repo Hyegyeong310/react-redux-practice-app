@@ -4,7 +4,6 @@ export const CREATE_PROJECT_ERROR = 'CREATE_PROJECT_ERROR';
 
 export const createProject = project => {
   return (dispatch, getState) => {
-    // TODO: async function call
     firebase
       .firestore()
       .collection('projects')
